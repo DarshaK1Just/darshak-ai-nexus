@@ -18,11 +18,18 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        // Neon variants for the futuristic portfolio
+        neon: "bg-gradient-primary text-primary-foreground shadow-neon hover:shadow-[0_0_40px_hsl(var(--primary-glow))] transition-all duration-300 hover:scale-105 neon-border",
+        "neon-secondary": "bg-gradient-secondary text-secondary-foreground shadow-[0_0_20px_hsl(var(--secondary-glow))] hover:shadow-[0_0_40px_hsl(var(--secondary-glow))] transition-all duration-300 hover:scale-105 border border-secondary",
+        "neon-accent": "bg-gradient-accent text-accent-foreground shadow-[0_0_20px_hsl(var(--accent-glow))] hover:shadow-[0_0_40px_hsl(var(--accent-glow))] transition-all duration-300 hover:scale-105 border border-accent",
+        glass: "glass-card text-foreground hover:bg-white/10 hover:border-primary/50 transition-all duration-300 hover:scale-105",
+        "glass-neon": "glass-card text-foreground border-primary/30 hover:border-primary hover:shadow-[0_0_30px_hsl(var(--primary-glow))] transition-all duration-300 hover:scale-105"
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
+        xl: "h-12 rounded-lg px-10 text-base",
         icon: "h-10 w-10",
       },
     },
