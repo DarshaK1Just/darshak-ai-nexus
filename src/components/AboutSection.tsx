@@ -63,9 +63,9 @@ export function AboutSection() {
             About Me
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Passionate AI/ML Engineer and Full Stack Developer with expertise in building 
-            intelligent systems and scalable applications. Currently working at CrestData 
-            Systems, contributing to cutting-edge AI solutions and innovative technologies 
+            Passionate AI/ML Engineer and Full Stack Developer with expertise in building
+            intelligent systems and scalable applications. Currently working at CrestData
+            Systems, contributing to cutting-edge AI solutions and innovative technologies
             that shape the future.
           </p>
         </motion.div>
@@ -79,12 +79,12 @@ export function AboutSection() {
         >
           <div className="text-center">
             <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl font-bold text-primary-foreground">3+</span>
+              <span className="text-2xl font-bold text-primary-foreground">2+</span>
             </div>
             <h3 className="text-lg font-semibold mb-2">Years Experience</h3>
             <p className="text-muted-foreground text-sm">Building AI solutions and full-stack applications</p>
           </div>
-          
+
           <div className="text-center">
             <div className="w-16 h-16 bg-gradient-secondary rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-2xl font-bold text-secondary-foreground">15+</span>
@@ -92,7 +92,7 @@ export function AboutSection() {
             <h3 className="text-lg font-semibold mb-2">Projects Completed</h3>
             <p className="text-muted-foreground text-sm">AI/ML, IoT, and web development projects</p>
           </div>
-          
+
           <div className="text-center">
             <div className="w-16 h-16 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-2xl font-bold text-accent-foreground">5+</span>

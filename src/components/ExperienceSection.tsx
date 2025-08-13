@@ -52,21 +52,6 @@ const experiences = [
   }
 ];
 
-const freelanceProjects = [
-  {
-    title: 'AI Healthcare Chatbot',
-    description: 'Speech-to-text appointment booking system with natural language processing',
-    technologies: ['Python', 'NLP', 'Speech Recognition', 'Flask'],
-    duration: '2023'
-  },
-  {
-    title: 'AutoJob.ai',
-    description: 'AI-powered job auto-apply platform using advanced automation',
-    technologies: ['Python', 'LangGraph', 'Playwright', 'AI Agents'],
-    duration: '2024'
-  }
-];
-
 export function ExperienceSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -84,7 +69,7 @@ export function ExperienceSection() {
             Professional Experience
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Building innovative solutions across AI, full-stack development, and DevOps 
+            Building innovative solutions across AI, full-stack development, and DevOps
             with leading technology companies.
           </p>
         </motion.div>
@@ -100,9 +85,8 @@ export function ExperienceSection() {
               initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`relative mb-12 ${
-                index % 2 === 0 ? 'md:pr-1/2 md:text-right' : 'md:pl-1/2 md:ml-auto'
-              }`}
+              className={`relative mb-12 ${index % 2 === 0 ? 'md:pr-1/2 md:text-right' : 'md:pl-1/2 md:ml-auto'
+                }`}
             >
               {/* Timeline dot */}
               <div className={`absolute w-4 h-4 rounded-full bg-${exp.color} left-2 md:left-1/2 transform md:-translate-x-1/2 top-6 z-10 shadow-neon`}></div>
@@ -161,45 +145,6 @@ export function ExperienceSection() {
             </motion.div>
           ))}
         </div>
-
-        {/* Freelance Projects */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-20"
-        >
-          <h3 className="text-2xl font-bold mb-8 text-center gradient-text-secondary">
-            Freelance Projects
-          </h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            {freelanceProjects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
-              >
-                <Card className="glass-card hover-lift h-full">
-                  <div className="flex justify-between items-start mb-3">
-                    <h4 className="font-bold text-primary">{project.title}</h4>
-                    <Badge variant="outline" className="text-xs">{project.duration}</Badge>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <Badge key={tech} variant="outline" className="glass text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

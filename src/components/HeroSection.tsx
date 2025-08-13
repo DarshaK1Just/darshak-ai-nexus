@@ -12,7 +12,7 @@ const socialLinks = [
     color: 'hover:text-primary'
   },
   {
-    name: 'LinkedIn', 
+    name: 'LinkedIn',
     url: 'https://www.linkedin.com/in/darshak-kakani-31277a1bb/',
     icon: Linkedin,
     color: 'hover:text-neon-blue'
@@ -27,7 +27,7 @@ const socialLinks = [
 
 const roles = [
   "AI/ML Engineer",
-  "Full Stack Developer", 
+  "Full Stack Developer",
   "Data Scientist",
   "Automation Expert",
   "Gamer"
@@ -36,7 +36,7 @@ const roles = [
 export function HeroSection() {
   const handleResumeClick = () => {
     // Replace with actual resume link
-    window.open('#', '_blank');
+    window.open('https://drive.google.com/file/d/1Eg3AR9W0nHFGYcD-VlnrELaVTZwAJhEt/view?usp=drive_link', '_blank');
   };
 
   const handleProjectsClick = () => {
@@ -46,7 +46,7 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <Neural3DBackground />
-      
+
       {/* Floating particles */}
       <div className="absolute inset-0">
         {Array.from({ length: 50 }).map((_, i) => (
@@ -78,7 +78,7 @@ export function HeroSection() {
           className="text-center max-w-4xl mx-auto"
         >
           {/* Main heading */}
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -96,7 +96,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="text-xl md:text-2xl mb-8 text-muted-foreground h-16 flex items-center justify-center"
           >
-            <TypewriterText 
+            <TypewriterText
               texts={roles}
               className="gradient-text-secondary font-semibold"
               typingSpeed={100}
@@ -112,8 +112,8 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 1.2 }}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
           >
-            <Button 
-              variant="neon" 
+            <Button
+              variant="neon"
               size="xl"
               onClick={handleProjectsClick}
               className="group"
@@ -121,8 +121,8 @@ export function HeroSection() {
               <ExternalLink className="w-5 h-5 group-hover:scale-110 transition-transform" />
               View Projects
             </Button>
-            <Button 
-              variant="glass-neon" 
+            <Button
+              variant="glass-neon"
               size="xl"
               onClick={handleResumeClick}
               className="group"
