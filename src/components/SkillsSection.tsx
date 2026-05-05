@@ -1,221 +1,141 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Code, Database, Brain, Cloud, Trophy } from 'lucide-react';
-import { Suspense } from 'react';
+import { useReveal, useInViewOnce } from '@/hooks/use-reveal';
+import { useEffect, useState } from 'react';
 
-// 3D Skill Icon Component
-function SkillIcon3D({ category }: { category: string }) {
+const groups = [
+  {
+    key: 'ai',
+    title: 'AI / ML',
+    desc: 'LLM agents, RAG, NLP, multi-agent orchestration',
+    skills: ['LangChain', 'LangGraph', 'AutoGen', 'RAG', 'NLP', 'TensorFlow', 'PyTorch', 'OpenAI'],
+    span: 'lg:col-span-2 lg:row-span-2',
+    tint: 'rgba(99,102,241,0.08)',
+  },
+  {
+    key: 'fs',
+    title: 'Full Stack',
+    desc: 'Modern web with type-safe APIs',
+    skills: ['React', 'Angular', 'Next.js', 'Node.js', 'Express', 'FastAPI', 'Flask', 'TypeScript'],
+    span: 'lg:col-span-2',
+  },
+  {
+    key: 'iot',
+    title: 'IoT',
+    desc: 'Edge devices & sensors',
+    skills: ['Raspberry Pi', 'Arduino', 'MQTT', 'OpenCV'],
+    span: '',
+  },
+  {
+    key: 'cloud',
+    title: 'Cloud',
+    desc: 'Deploy & scale',
+    skills: ['AWS', 'Docker', 'Redis', 'CI/CD'],
+    span: '',
+  },
+  {
+    key: 'lang',
+    title: 'Languages',
+    desc: 'Day-to-day arsenal',
+    skills: ['Python', 'C/C++', 'Java', 'Golang', 'JavaScript', 'SQL'],
+    span: 'lg:col-span-2',
+  },
+];
+
+const topSkills = [
+  { name: 'AI/ML', value: 92 },
+  { name: 'Full Stack', value: 90 },
+  { name: 'Cloud', value: 82 },
+  { name: 'IoT', value: 80 },
+];
+
+function Ring({ value, label, idx }: { value: number; label: string; idx: number }) {
+  const { ref, inView } = useInViewOnce<HTMLDivElement>();
+  const [v, setV] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - t0) / 1200);
+      setV(value * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, value]);
+
+  const r = 36;
+  const c = 2 * Math.PI * r;
+  const offset = c - (v / 100) * c;
+
   return (
-    <group>
-      <mesh rotation={[0, 0, 0]}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshBasicMaterial 
-          color={
-            category === 'Languages' ? '#3B82F6' :
-            category === 'Frameworks' ? '#8B5CF6' :
-            category === 'Databases' ? '#EC4899' :
-            category === 'AI/ML' ? '#06B6D4' :
-            '#F59E0B'
-          } 
-          wireframe 
-          opacity={0.6} 
-          transparent 
-        />
-      </mesh>
-    </group>
+    <div ref={ref} className="card-surface p-5 flex items-center gap-4" style={{ transitionDelay: `${idx * 80}ms` }}>
+      <div className="relative w-20 h-20">
+        <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+          <defs>
+            <linearGradient id={`g-${idx}`} x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stopColor="#6366F1" />
+              <stop offset="50%" stopColor="#A78BFA" />
+              <stop offset="100%" stopColor="#EC4899" />
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r={r} stroke="hsl(var(--border))" strokeWidth="8" fill="none" />
+          <circle
+            cx="50"
+            cy="50"
+            r={r}
+            stroke={`url(#g-${idx})`}
+            strokeWidth="8"
+            strokeLinecap="round"
+            fill="none"
+            strokeDasharray={c}
+            strokeDashoffset={offset}
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center font-display font-bold text-sm">
+          {Math.round(v)}%
+        </div>
+      </div>
+      <div>
+        <div className="font-display font-semibold">{label}</div>
+        <div className="text-xs text-muted-foreground">Proficiency</div>
+      </div>
+    </div>
   );
 }
 
-const skills = [
-  {
-    category: 'Languages',
-    icon: Code,
-    skills: ['Python', 'C/C++', 'Java', 'Golang', 'JavaScript'],
-    color: 'text-neon-blue',
-    proficiency: 95
-  },
-  {
-    category: 'Frameworks',
-    icon: Code,
-    skills: ['React', 'Angular', 'Express', 'Flask', 'FastAPI'],
-    color: 'text-neon-purple',
-    proficiency: 90
-  },
-  {
-    category: 'Databases',
-    icon: Database,
-    skills: ['MySQL', 'PostgreSQL', 'MongoDB'],
-    color: 'text-neon-pink',
-    proficiency: 85
-  },
-  {
-    category: 'AI/ML',
-    icon: Brain,
-    skills: ['LangChain', 'LangGraph', 'AutoGen', 'RAG', 'NLP'],
-    color: 'text-neon-cyan',
-    proficiency: 88
-  },
-  {
-    category: 'Cloud/Tools',
-    icon: Cloud,
-    skills: ['AWS', 'Docker', 'Redis', 'Git/GitHub', 'WebSockets'],
-    color: 'text-primary',
-    proficiency: 82
-  }
-];
-
-const achievements = [
-  {
-    title: 'Hackathon 1st Runner-Up',
-    icon: Trophy,
-    description: 'Secured second position in competitive programming hackathon'
-  },
-  {
-    title: 'Flipkart GRiD 5.0 Level 2',
-    icon: Trophy,
-    description: 'Advanced to second level in Flipkart\'s coding challenge'
-  },
-  {
-    title: 'AIR 50 CodeKaze',
-    icon: Trophy,
-    description: 'All India Rank 50 in CodeKaze programming contest'
-  },
-  {
-    title: 'Google Cloud Arcade',
-    icon: Trophy,
-    description: 'Active contributor to Google Cloud Arcade program'
-  },
-  {
-    title: '440+ LeetCode Problems',
-    icon: Code,
-    description: 'Solved over 440 algorithmic problems on LeetCode'
-  },
-  {
-    title: '130+ GFG Problems',
-    icon: Code,
-    description: 'Completed 130+ problems on GeeksforGeeks platform'
-  }
-];
-
 export function SkillsSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
+  const ref = useReveal<HTMLElement>();
   return (
-    <section ref={ref} id="skills" className="py-20 relative">
+    <section ref={ref} id="skills" className="section reveal">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
-            Technical Skills
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive expertise across the full technology stack, from AI/ML 
-            to cloud infrastructure and modern web development.
-          </p>
-        </motion.div>
+        <div className="text-center mb-12">
+          <div className="section-eyebrow justify-center">Skills</div>
+          <h2 className="section-title">A <span className="text-gradient">full-stack</span> toolkit</h2>
+        </div>
 
-        {/* Skills Grid with 3D Icons */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {skills.map((skillGroup, index) => (
-            <motion.div
-              key={skillGroup.category}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+        {/* Bento grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 auto-rows-[180px] mb-12">
+          {groups.map((g) => (
+            <div
+              key={g.key}
+              className={`card-surface p-6 flex flex-col ${g.span}`}
+              style={{ background: g.tint ? `linear-gradient(135deg, ${g.tint}, transparent), hsl(var(--surface))` : undefined }}
             >
-              <Card className="glass-card hover-lift h-full group">
-                {/* 3D Icon */}
-                <div className="w-20 h-20 mx-auto mb-4 relative">
-                  <Canvas camera={{ position: [0, 0, 3], fov: 50 }}>
-                    <Suspense fallback={null}>
-                      <ambientLight intensity={0.5} />
-                      <pointLight position={[10, 10, 10]} intensity={0.5} />
-                      <SkillIcon3D category={skillGroup.category} />
-                    </Suspense>
-                  </Canvas>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <skillGroup.icon className={`w-8 h-8 ${skillGroup.color} group-hover:scale-110 transition-transform duration-300`} />
-                  </div>
-                </div>
-
-                <h4 className="text-lg font-semibold text-center mb-2">{skillGroup.category}</h4>
-                
-                {/* Proficiency Bar */}
-                <div className="mb-4">
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-muted-foreground">Proficiency</span>
-                    <span className="text-primary font-semibold">{skillGroup.proficiency}%</span>
-                  </div>
-                  <div className="w-full bg-muted rounded-full h-2">
-                    <motion.div 
-                      className="bg-gradient-primary h-2 rounded-full"
-                      initial={{ width: 0 }}
-                      animate={isInView ? { width: `${skillGroup.proficiency}%` } : {}}
-                      transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {skillGroup.skills.map((skill) => (
-                    <Badge 
-                      key={skill} 
-                      variant="outline" 
-                      className="glass hover:bg-primary/20 transition-colors text-xs"
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </Card>
-            </motion.div>
+              <div className="font-display font-bold text-xl mb-1">{g.title}</div>
+              <div className="text-xs text-muted-foreground mb-4">{g.desc}</div>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {g.skills.map((s) => (
+                  <span key={s} className="chip">{s}</span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Achievements */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <h3 className="text-2xl font-bold mb-8 text-center gradient-text-secondary">
-            Achievements & Recognition
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {achievements.map((achievement, index) => (
-              <motion.div
-                key={achievement.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
-              >
-                <Card className="glass-card hover-lift h-full group">
-                  <div className="flex items-start mb-3">
-                    <div className="w-10 h-10 bg-gradient-accent rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-300">
-                      <achievement.icon className="w-5 h-5 text-accent-foreground" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-primary mb-1">
-                        {achievement.title}
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        {achievement.description}
-                      </p>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        {/* Top 4 proficiency rings */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+          {topSkills.map((s, i) => <Ring key={s.name} value={s.value} label={s.name} idx={i} />)}
+        </div>
       </div>
     </section>
   );
