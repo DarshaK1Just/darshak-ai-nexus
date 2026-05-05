@@ -1,183 +1,111 @@
-import { motion } from 'framer-motion';
-import { Button } from "@/components/ui/button";
-import { TypewriterText } from './TypewriterText';
-import Neural3DBackground from './Neural3DBackground';
-import { Github, Linkedin, Youtube, Download, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Youtube, ArrowRight, Download } from 'lucide-react';
+import { Constellation } from './Constellation';
+import { Typewriter } from './Typewriter';
 
-const socialLinks = [
-  {
-    name: 'GitHub',
-    url: 'https://github.com/DarshaK1Just',
-    icon: Github,
-    color: 'hover:text-primary'
-  },
-  {
-    name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/darshak-kakani-31277a1bb/',
-    icon: Linkedin,
-    color: 'hover:text-neon-blue'
-  },
-  {
-    name: 'YouTube',
-    url: 'https://www.youtube.com/channel/UCUy35Eo8jIpBYnEovea6Vow',
-    icon: Youtube,
-    color: 'hover:text-accent'
-  }
-];
-
-const roles = [
-  "AI/ML Engineer",
-  "Full Stack Developer",
-  "Data Scientist",
-  "Automation Expert",
-  "Gamer"
+const socials = [
+  { name: 'GitHub', url: 'https://github.com/DarshaK1Just', icon: Github },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/darshak-kakani-31277a1bb/', icon: Linkedin },
+  { name: 'YouTube', url: 'https://www.youtube.com/channel/UCUy35Eo8jIpBYnEovea6Vow', icon: Youtube },
 ];
 
 export function HeroSection() {
-  const handleResumeClick = () => {
-    // Replace with actual resume link
-    window.open('https://drive.google.com/file/d/1Eg3AR9W0nHFGYcD-VlnrELaVTZwAJhEt/view?usp=drive_link', '_blank');
-  };
-
-  const handleProjectsClick = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const scrollTo = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <Neural3DBackground />
+    <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      {/* Ambient orbs */}
+      <div
+        className="absolute top-20 -left-20 w-[300px] h-[300px] rounded-full pointer-events-none animate-drift"
+        style={{ background: 'radial-gradient(circle, hsl(var(--indigo)) 0%, transparent 70%)', opacity: 0.12, filter: 'blur(60px)' }}
+      />
+      <div
+        className="absolute bottom-10 right-10 w-[300px] h-[300px] rounded-full pointer-events-none animate-drift2"
+        style={{ background: 'radial-gradient(circle, hsl(var(--pink)) 0%, transparent 70%)', opacity: 0.12, filter: 'blur(60px)' }}
+      />
 
-      {/* Floating particles */}
-      <div className="absolute inset-0">
-        {Array.from({ length: 50 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.4, 1, 0.4],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="container mx-auto px-6 z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center max-w-4xl mx-auto"
-        >
-          {/* Main heading */}
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-5xl md:text-7xl font-bold mb-6"
+      <div className="container mx-auto px-6 grid lg:grid-cols-5 gap-12 items-center relative z-10">
+        {/* Left 60% */}
+        <div className="lg:col-span-3 space-y-7">
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-surface/60"
+            style={{ animationDelay: '0ms' }}
           >
-            Hello There <span className="animate-bounce inline-block">👋</span>
-            <br />
-            <span className="gradient-text">I am Darshak Kakani</span>
-          </motion.h1>
+            <span className="relative flex w-2 h-2">
+              <span className="absolute inset-0 rounded-full bg-green-brand animate-pulse-dot" />
+              <span className="rounded-full w-2 h-2 bg-green-brand" />
+            </span>
+            <span className="text-muted-foreground">Available for Work</span>
+          </div>
 
-          {/* Typewriter subtitle */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="text-xl md:text-2xl mb-8 text-muted-foreground h-16 flex items-center justify-center"
-          >
-            <TypewriterText
-              texts={roles}
-              className="gradient-text-secondary font-semibold"
-              typingSpeed={100}
-              deletingSpeed={50}
-              pauseTime={2000}
+          <h1 className="font-display font-bold leading-[1.05] text-[44px] md:text-[56px] lg:text-[68px]">
+            I'm Darshak Kakani
+          </h1>
+
+          <div className="text-2xl md:text-3xl font-display font-medium text-muted-foreground">
+            I build{' '}
+            <Typewriter
+              texts={['AI Systems', 'ML Models', 'Full-Stack Apps', 'IoT Solutions']}
+              className="text-gradient font-semibold"
             />
-          </motion.div>
+          </div>
 
-          {/* Action buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
-          >
-            <Button
-              variant="neon"
-              size="xl"
-              onClick={handleProjectsClick}
-              className="group"
-            >
-              <ExternalLink className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              View Projects
-            </Button>
-            <Button
-              variant="glass-neon"
-              size="xl"
-              onClick={handleResumeClick}
-              className="group"
-            >
-              <Download className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              Download Resume
-            </Button>
-          </motion.div>
+          <p className="text-base text-muted-foreground max-w-xl leading-relaxed">
+            AI/ML Engineer & Full Stack Developer at CrestData Systems. I design intelligent
+            systems, ship production AI, and build delightful end-to-end products.
+          </p>
 
-          {/* Social links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.6 }}
-            className="flex justify-center gap-6"
-          >
-            {socialLinks.map((social, index) => (
-              <motion.a
-                key={social.name}
-                href={social.url}
+          <div className="flex flex-wrap gap-3 pt-2">
+            <button
+              onClick={() => scrollTo('projects')}
+              className="pill pill-gradient px-6 py-3 text-sm"
+            >
+              View My Work <ArrowRight className="w-4 h-4" />
+            </button>
+            <a
+              href="https://drive.google.com/file/d/1Eg3AR9W0nHFGYcD-VlnrELaVTZwAJhEt/view?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pill pill-outline px-6 py-3 text-sm"
+            >
+              Download CV <Download className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="flex gap-3 pt-2">
+            {socials.map((s) => (
+              <a
+                key={s.name}
+                href={s.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 1.8 + index * 0.1 }}
-                className={`p-3 glass rounded-lg hover-lift ${social.color} transition-all duration-300 group`}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+                aria-label={s.name}
+                className="icon-btn"
               >
-                <social.icon className="w-6 h-6 group-hover:animate-pulse" />
-              </motion.a>
+                <s.icon className="w-4 h-4" />
+              </a>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
+
+        {/* Right 40% */}
+        <div className="lg:col-span-2 relative h-[420px] md:h-[500px]">
+          <Constellation />
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 2 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      {/* Scroll arrow */}
+      <button
+        onClick={() => scrollTo('about')}
+        aria-label="Scroll down"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-foreground"
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-primary rounded-full flex justify-center"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-            className="w-1 h-3 bg-primary rounded-full mt-2"
-          />
-        </motion.div>
-      </motion.div>
+        <div className="animate-bounce-down flex flex-col items-center gap-1">
+          <div className="w-6 h-10 border-2 border-current rounded-full flex justify-center">
+            <span className="w-1 h-2 bg-current rounded-full mt-2" />
+          </div>
+        </div>
+      </button>
     </section>
   );
 }
