@@ -1,8 +1,6 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { useState } from 'react';
+import { useReveal } from '@/hooks/use-reveal';
+import { Calendar, MapPin } from 'lucide-react';
 
 const experiences = [
   {
@@ -15,10 +13,9 @@ const experiences = [
       'Built Netskope AI Plugin with advanced data processing capabilities',
       'Led Angular UI Revamp project improving user experience by 40%',
       'Developed DevOps Maturity Platform with GPT-powered analysis',
-      'Implemented automated CI/CD pipelines reducing deployment time by 60%'
+      'Implemented automated CI/CD pipelines reducing deployment time by 60%',
     ],
     technologies: ['Angular', 'Python', 'AI/ML', 'DevOps', 'GPT APIs'],
-    color: 'primary'
   },
   {
     company: 'TatvaSoft',
@@ -30,10 +27,9 @@ const experiences = [
       'Developed MERN E-Bookstore Web Application from scratch',
       'Implemented user authentication and payment gateway integration',
       'Created responsive UI components with modern design principles',
-      'Optimized application performance achieving 95+ Lighthouse score'
+      'Optimized application performance achieving 95+ Lighthouse score',
     ],
     technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT'],
-    color: 'secondary'
   },
   {
     company: 'The Spark Foundation',
@@ -45,105 +41,77 @@ const experiences = [
       'Developed ML-based predictive analytics models',
       'Performed data analysis on large datasets using Python',
       'Created interactive visualizations for business insights',
-      'Implemented machine learning algorithms achieving 92% accuracy'
+      'Implemented machine learning algorithms achieving 92% accuracy',
     ],
     technologies: ['Python', 'Pandas', 'Scikit-learn', 'Matplotlib', 'Jupyter'],
-    color: 'accent'
-  }
+  },
 ];
 
 export function ExperienceSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const ref = useReveal<HTMLElement>();
+  const [active, setActive] = useState(0);
+  const exp = experiences[active];
 
   return (
-    <section ref={ref} id="experience" className="py-20 relative">
+    <section ref={ref} id="experience" className="section reveal">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
-            Professional Experience
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Building innovative solutions across AI, full-stack development, and DevOps
-            with leading technology companies.
-          </p>
-        </motion.div>
+        <div className="text-center mb-12">
+          <div className="section-eyebrow justify-center">Experience</div>
+          <h2 className="section-title">Professional <span className="text-gradient">journey</span></h2>
+        </div>
 
-        {/* Experience Timeline */}
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-px h-full bg-gradient-to-b from-primary via-secondary to-accent"></div>
+        <div className="grid lg:grid-cols-12 gap-8 max-w-5xl mx-auto">
+          {/* Company list */}
+          <div className="lg:col-span-4">
+            <div className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible">
+              {experiences.map((e, i) => {
+                const isActive = i === active;
+                return (
+                  <button
+                    key={e.company}
+                    onClick={() => setActive(i)}
+                    className="text-left px-4 py-3 rounded-r-md whitespace-nowrap lg:whitespace-normal"
+                    style={{
+                      borderLeft: isActive ? '2px solid hsl(var(--indigo))' : '2px solid hsl(var(--border))',
+                      background: isActive ? 'hsl(var(--indigo) / 0.08)' : 'transparent',
+                      color: isActive ? 'hsl(var(--foreground))' : 'hsl(var(--muted-foreground))',
+                    }}
+                  >
+                    <div className="font-display font-semibold text-sm">{e.company}</div>
+                    <div className="text-xs opacity-70">{e.type}</div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={`${exp.company}-${exp.position}`}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`relative mb-12 ${index % 2 === 0 ? 'md:pr-1/2 md:text-right' : 'md:pl-1/2 md:ml-auto'
-                }`}
-            >
-              {/* Timeline dot */}
-              <div className={`absolute w-4 h-4 rounded-full bg-${exp.color} left-2 md:left-1/2 transform md:-translate-x-1/2 top-6 z-10 shadow-neon`}></div>
+          {/* Detail */}
+          <div className="lg:col-span-8">
+            <div className="card-surface p-6 md:p-8" key={active}>
+              <h3 className="font-display font-bold text-xl">
+                {exp.position} <span className="text-muted-foreground font-normal">@ {exp.company}</span>
+              </h3>
+              <div className="flex flex-wrap gap-4 text-xs text-muted-foreground mt-2 mb-6">
+                <span className="inline-flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{exp.duration}</span>
+                <span className="inline-flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" />{exp.location}</span>
+              </div>
 
-              <Card className="glass-card hover-lift ml-8 md:ml-0">
-                {/* Company Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold gradient-text-secondary">
-                      {exp.position}
-                    </h3>
-                    <div className="flex items-center gap-2 text-lg font-semibold text-primary">
-                      <Briefcase className="w-5 h-5" />
-                      {exp.company}
-                    </div>
-                  </div>
-                  <Badge variant="outline" className={`bg-gradient-${exp.color} text-${exp.color}-foreground border-${exp.color}`}>
-                    {exp.type}
-                  </Badge>
-                </div>
+              <ul className="space-y-3 mb-6">
+                {exp.projects.map((p) => (
+                  <li key={p} className="text-sm text-muted-foreground flex gap-3">
+                    <span className="text-gradient mt-0.5">▸</span>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
 
-                {/* Duration and Location */}
-                <div className="flex flex-col sm:flex-row gap-4 mb-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    {exp.duration}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4" />
-                    {exp.location}
-                  </div>
-                </div>
-
-                {/* Projects */}
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">Key Projects & Achievements:</h4>
-                  <ul className="space-y-2">
-                    {exp.projects.map((project, i) => (
-                      <li key={i} className="text-sm flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                        {project}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2">
-                  {exp.technologies.map((tech) => (
-                    <Badge key={tech} variant="outline" className="glass text-xs">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+              <div className="flex flex-wrap gap-2">
+                {exp.technologies.map((t) => (
+                  <span key={t} className="chip chip-mono">{t}</span>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -18,7 +18,17 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				display: ['Space Grotesk', 'sans-serif'],
+				sans: ['Inter', 'sans-serif'],
+				mono: ['JetBrains Mono', 'monospace'],
+			},
 			colors: {
+				indigo: { brand: 'hsl(var(--indigo))' },
+				violet: { brand: 'hsl(var(--violet))' },
+				pink: { brand: 'hsl(var(--pink))' },
+				green: { brand: 'hsl(var(--green))' },
+				surface: 'hsl(var(--surface))',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
