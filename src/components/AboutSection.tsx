@@ -1,9 +1,9 @@
 import { useReveal, useCountUp, useInViewOnce } from '@/hooks/use-reveal';
 
 const stats = [
-  { num: 2, suffix: '+', label: 'Years Experience', sub: 'Building AI & full-stack' },
-  { num: 15, suffix: '+', label: 'Projects Completed', sub: 'AI/ML, IoT & web', big: true },
-  { num: 5, suffix: '+', label: 'Tech Awards', sub: 'Hackathons & contests' },
+  { num: 2, suffix: '+', label: 'Years Experience' },
+  { num: 15, suffix: '+', label: 'Projects Completed' },
+  { num: 5, suffix: '+', label: 'Tech Awards' },
 ];
 
 function StatCard({ s, idx }: { s: typeof stats[0]; idx: number }) {
@@ -12,14 +12,26 @@ function StatCard({ s, idx }: { s: typeof stats[0]; idx: number }) {
   return (
     <div
       ref={ref}
-      className={`card-surface p-6 ${s.big ? 'md:col-span-2 md:row-span-2 p-8' : ''}`}
-      style={{ transitionDelay: `${idx * 80}ms` }}
+      className="relative rounded-xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03]"
+      style={{
+        background: 'linear-gradient(135deg, hsl(var(--foreground) / 0.04), hsl(var(--foreground) / 0.01))',
+        border: '1px solid hsl(var(--border))',
+        backdropFilter: 'blur(8px)',
+        transitionDelay: `${idx * 80}ms`,
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = 'hsl(var(--indigo) / 0.5)';
+        (e.currentTarget as HTMLDivElement).style.boxShadow = '0 10px 30px -10px hsl(var(--indigo) / 0.35)';
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = '';
+        (e.currentTarget as HTMLDivElement).style.boxShadow = '';
+      }}
     >
-      <div className={`font-display font-bold text-gradient ${s.big ? 'text-6xl md:text-7xl' : 'text-5xl'}`}>
+      <div className="font-display font-bold text-gradient text-3xl md:text-[32px] leading-none">
         {v}{s.suffix}
       </div>
-      <div className="mt-3 font-display font-semibold">{s.label}</div>
-      <div className="text-sm text-muted-foreground mt-1">{s.sub}</div>
+      <div className="mt-2 text-[13px] text-muted-foreground">{s.label}</div>
     </div>
   );
 }
@@ -52,12 +64,12 @@ export function AboutSection() {
             </span>
             <div>
               <div className="text-xs text-muted-foreground">Currently at</div>
-              <div className="font-display font-semibold">CrestData Systems · AI/ML Engineer</div>
+              <div className="font-display font-semibold">Crest Data · AI/ML Engineer</div>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:gap-5 auto-rows-[160px]">
+        <div className="grid grid-cols-3 gap-3">
           {stats.map((s, i) => <StatCard key={s.label} s={s} idx={i} />)}
         </div>
       </div>
