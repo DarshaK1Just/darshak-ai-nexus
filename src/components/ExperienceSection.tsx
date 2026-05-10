@@ -4,7 +4,7 @@ import { Calendar, MapPin } from 'lucide-react';
 
 const experiences = [
   {
-    company: 'CrestData Systems',
+    company: 'Crest Data',
     position: 'Software Engineer',
     duration: 'Nov 2023 – Present',
     location: 'Ahmedabad, India',

@@ -1,44 +1,86 @@
 import { useReveal, useInViewOnce } from '@/hooks/use-reveal';
 import { useEffect, useState } from 'react';
+import { Brain, Code2, Cpu, Cloud, Terminal } from 'lucide-react';
 
-const groups = [
+type Tone = 'violet' | 'blue' | 'cyan' | 'indigo' | 'pink';
+
+const groups: {
+  key: string;
+  title: string;
+  icon: any;
+  tone: Tone;
+  cols: string;
+  skills: string[];
+}[] = [
   {
     key: 'ai',
     title: 'AI / ML',
-    desc: 'LLM agents, RAG, NLP, multi-agent orchestration',
-    skills: ['LangChain', 'LangGraph', 'AutoGen', 'RAG', 'NLP', 'TensorFlow', 'PyTorch', 'OpenAI'],
-    span: 'lg:col-span-2 lg:row-span-2',
-    tint: 'rgba(99,102,241,0.08)',
+    icon: Brain,
+    tone: 'violet',
+    cols: 'grid-cols-3',
+    skills: ['LangChain', 'LangGraph', 'AutoGen', 'RAG', 'NLP', 'TensorFlow', 'PyTorch', 'OpenAI', 'Transformers'],
   },
   {
     key: 'fs',
     title: 'Full Stack',
-    desc: 'Modern web with type-safe APIs',
-    skills: ['React', 'Angular', 'Next.js', 'Node.js', 'Express', 'FastAPI', 'Flask', 'TypeScript'],
-    span: 'lg:col-span-2',
+    icon: Code2,
+    tone: 'blue',
+    cols: 'grid-cols-3',
+    skills: ['React', 'Angular', 'Next.js', 'Node.js', 'Express', 'FastAPI', 'Flask', 'TypeScript', 'REST'],
   },
   {
     key: 'iot',
     title: 'IoT',
-    desc: 'Edge devices & sensors',
+    icon: Cpu,
+    tone: 'cyan',
+    cols: 'grid-cols-2',
     skills: ['Raspberry Pi', 'Arduino', 'MQTT', 'OpenCV'],
-    span: '',
   },
   {
     key: 'cloud',
     title: 'Cloud',
-    desc: 'Deploy & scale',
+    icon: Cloud,
+    tone: 'indigo',
+    cols: 'grid-cols-2',
     skills: ['AWS', 'Docker', 'Redis', 'CI/CD'],
-    span: '',
   },
   {
     key: 'lang',
     title: 'Languages',
-    desc: 'Day-to-day arsenal',
+    icon: Terminal,
+    tone: 'pink',
+    cols: 'grid-cols-3',
     skills: ['Python', 'C/C++', 'Java', 'Golang', 'JavaScript', 'SQL'],
-    span: 'lg:col-span-2',
   },
 ];
+
+const toneStyles: Record<Tone, { bg: string; border: string; text: string; glow: string; icon: string }> = {
+  violet: { bg: 'rgba(167,139,250,0.10)', border: 'rgba(167,139,250,0.30)', text: '#C4B5FD', glow: 'rgba(167,139,250,0.45)', icon: '#A78BFA' },
+  blue: { bg: 'rgba(59,130,246,0.10)', border: 'rgba(59,130,246,0.30)', text: '#93C5FD', glow: 'rgba(59,130,246,0.45)', icon: '#60A5FA' },
+  cyan: { bg: 'rgba(6,182,212,0.10)', border: 'rgba(6,182,212,0.30)', text: '#67E8F9', glow: 'rgba(6,182,212,0.45)', icon: '#22D3EE' },
+  indigo: { bg: 'rgba(99,102,241,0.10)', border: 'rgba(99,102,241,0.30)', text: '#A5B4FC', glow: 'rgba(99,102,241,0.45)', icon: '#818CF8' },
+  pink: { bg: 'rgba(236,72,153,0.10)', border: 'rgba(236,72,153,0.30)', text: '#F9A8D4', glow: 'rgba(236,72,153,0.45)', icon: '#F472B6' },
+};
+
+function TechTag({ label, tone }: { label: string; tone: Tone }) {
+  const t = toneStyles[tone];
+  return (
+    <span
+      className="inline-flex items-center justify-center px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-200 cursor-default"
+      style={{ background: t.bg, border: `1px solid ${t.border}`, color: t.text }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLSpanElement).style.boxShadow = `0 0 14px ${t.glow}`;
+        (e.currentTarget as HTMLSpanElement).style.transform = 'translateY(-1px)';
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLSpanElement).style.boxShadow = '';
+        (e.currentTarget as HTMLSpanElement).style.transform = '';
+      }}
+    >
+      {label}
+    </span>
+  );
+}
 
 const topSkills = [
   { name: 'AI/ML', value: 92 },
@@ -68,8 +110,8 @@ function Ring({ value, label, idx }: { value: number; label: string; idx: number
   const offset = c - (v / 100) * c;
 
   return (
-    <div ref={ref} className="card-surface p-5 flex items-center gap-4" style={{ transitionDelay: `${idx * 80}ms` }}>
-      <div className="relative w-20 h-20">
+    <div ref={ref} className="card-surface p-4 flex items-center gap-3" style={{ transitionDelay: `${idx * 80}ms` }}>
+      <div className="relative w-16 h-16 shrink-0">
         <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
           <defs>
             <linearGradient id={`g-${idx}`} x1="0" x2="1" y1="0" y2="1">
@@ -79,25 +121,15 @@ function Ring({ value, label, idx }: { value: number; label: string; idx: number
             </linearGradient>
           </defs>
           <circle cx="50" cy="50" r={r} stroke="hsl(var(--border))" strokeWidth="8" fill="none" />
-          <circle
-            cx="50"
-            cy="50"
-            r={r}
-            stroke={`url(#g-${idx})`}
-            strokeWidth="8"
-            strokeLinecap="round"
-            fill="none"
-            strokeDasharray={c}
-            strokeDashoffset={offset}
-          />
+          <circle cx="50" cy="50" r={r} stroke={`url(#g-${idx})`} strokeWidth="8" strokeLinecap="round" fill="none" strokeDasharray={c} strokeDashoffset={offset} />
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center font-display font-bold text-sm">
+        <div className="absolute inset-0 flex items-center justify-center font-display font-bold text-xs">
           {Math.round(v)}%
         </div>
       </div>
       <div>
-        <div className="font-display font-semibold">{label}</div>
-        <div className="text-xs text-muted-foreground">Proficiency</div>
+        <div className="font-display font-semibold text-sm">{label}</div>
+        <div className="text-[11px] text-muted-foreground">Proficiency</div>
       </div>
     </div>
   );
@@ -113,27 +145,36 @@ export function SkillsSection() {
           <h2 className="section-title">A <span className="text-gradient">full-stack</span> toolkit</h2>
         </div>
 
-        {/* Bento grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 auto-rows-[180px] mb-12">
-          {groups.map((g) => (
-            <div
-              key={g.key}
-              className={`card-surface p-6 flex flex-col ${g.span}`}
-              style={{ background: g.tint ? `linear-gradient(135deg, ${g.tint}, transparent), hsl(var(--surface))` : undefined }}
-            >
-              <div className="font-display font-bold text-xl mb-1">{g.title}</div>
-              <div className="text-xs text-muted-foreground mb-4">{g.desc}</div>
-              <div className="flex flex-wrap gap-2 mt-auto">
-                {g.skills.map((s) => (
-                  <span key={s} className="chip">{s}</span>
-                ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-8 max-w-6xl mx-auto">
+          {groups.map((g) => {
+            const t = toneStyles[g.tone];
+            const Icon = g.icon;
+            return (
+              <div
+                key={g.key}
+                className="rounded-xl p-5 transition-all duration-300 hover:-translate-y-0.5"
+                style={{ background: 'hsl(var(--surface))', border: '1px solid hsl(var(--border))' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = t.border; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = ''; }}
+              >
+                <div className="flex items-center gap-2.5 mb-4">
+                  <span
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-md"
+                    style={{ background: t.bg, border: `1px solid ${t.border}`, color: t.icon }}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </span>
+                  <div className="font-display font-semibold text-base">{g.title}</div>
+                </div>
+                <div className={`grid ${g.cols} gap-2`}>
+                  {g.skills.map((s) => <TechTag key={s} label={s} tone={g.tone} />)}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Top 4 proficiency rings */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto">
           {topSkills.map((s, i) => <Ring key={s.name} value={s.value} label={s.name} idx={i} />)}
         </div>
       </div>

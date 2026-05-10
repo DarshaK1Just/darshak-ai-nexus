@@ -1,81 +1,58 @@
 import { useReveal } from '@/hooks/use-reveal';
-
-const education = [
-  {
-    degree: 'B.E. Information Technology',
-    cgpa: '8.97',
-    institution: 'G H Patel College of Engineering & Technology',
-    duration: '2020 - 2024',
-    description: 'Major in Information Technology with focus on software engineering, AI/ML, and system design',
-    highlights: [
-      "Dean's List for Academic Excellence",
-      'Final Year Project on AI-based Security Systems',
-      'Active member of Coding and Tech Clubs',
-    ],
-  },
-  {
-    degree: 'Minor Degree in IoT',
-    cgpa: '8.22',
-    institution: 'G H Patel College of Engineering & Technology',
-    duration: '2022 - 2024',
-    description: 'Specialized in Internet of Things, embedded systems, sensor networks, and edge computing',
-    highlights: [
-      'Built IoT-based smart home automation system',
-      'Worked with Raspberry Pi and Arduino platforms',
-      'Implemented edge AI for real-time data processing',
-    ],
-  },
-];
+import { GraduationCap } from 'lucide-react';
 
 export function EducationSection() {
   const ref = useReveal<HTMLElement>();
   return (
     <section ref={ref} id="education" className="section reveal">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <div className="section-eyebrow justify-center">Education</div>
           <h2 className="section-title">Academic <span className="text-gradient">foundation</span></h2>
         </div>
 
-        <div className="relative max-w-5xl mx-auto">
-          {/* Center timeline line */}
+        <div className="max-w-3xl mx-auto">
           <div
-            className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-px"
-            style={{ background: 'linear-gradient(180deg, hsl(var(--indigo)), hsl(var(--violet)))' }}
-          />
-
-          <div className="space-y-12">
-            {education.map((edu, i) => {
-              const left = i % 2 === 0;
-              return (
-                <div key={i} className={`relative md:grid md:grid-cols-2 md:gap-10 ${left ? '' : ''}`}>
-                  {/* Dot */}
-                  <div
-                    className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-6 w-3 h-3 rounded-full bg-grad-brand ring-4 ring-background"
-                  />
-
-                  <div className={`pl-12 md:pl-0 ${left ? 'md:pr-10 md:text-right' : 'md:col-start-2 md:pl-10'}`}>
-                    <div className="card-surface p-6">
-                      <div className={`flex items-center gap-3 mb-3 ${left ? 'md:justify-end' : ''}`}>
-                        <span className="chip">CGPA {edu.cgpa}</span>
-                        <span className="text-xs text-muted-foreground">{edu.duration}</span>
-                      </div>
-                      <h3 className="font-display font-bold text-xl mb-1">{edu.degree}</h3>
-                      <div className="text-sm text-muted-foreground mb-4">{edu.institution}</div>
-                      <p className="text-sm text-muted-foreground mb-4">{edu.description}</p>
-                      <ul className={`space-y-2 ${left ? 'md:text-right' : ''}`}>
-                        {edu.highlights.map((h) => (
-                          <li key={h} className={`text-sm flex items-start gap-2 ${left ? 'md:flex-row-reverse' : ''}`}>
-                            <span className="w-1 h-1 mt-2 bg-indigo-brand shrink-0" style={{ width: 4, height: 4 }} />
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+            className="relative rounded-2xl p-6 md:p-8 transition-all duration-300 hover:-translate-y-1"
+            style={{
+              background: 'linear-gradient(135deg, hsl(var(--indigo) / 0.06), hsl(var(--violet) / 0.04))',
+              border: '1px solid hsl(var(--border))',
+              backdropFilter: 'blur(8px)',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLDivElement).style.borderColor = 'hsl(var(--indigo) / 0.5)';
+              (e.currentTarget as HTMLDivElement).style.boxShadow = '0 20px 40px -16px hsl(var(--indigo) / 0.35)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLDivElement).style.borderColor = '';
+              (e.currentTarget as HTMLDivElement).style.boxShadow = '';
+            }}
+          >
+            <div className="flex flex-col md:flex-row md:items-start gap-5">
+              <div
+                className="inline-flex items-center justify-center w-12 h-12 rounded-xl shrink-0"
+                style={{ background: 'var(--gradient-brand)', color: 'white' }}
+              >
+                <GraduationCap className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center gap-3 mb-2">
+                  <h3 className="font-display font-bold text-xl">B.E. Information Technology</h3>
+                  <span
+                    className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold"
+                    style={{ background: 'hsl(var(--indigo) / 0.15)', border: '1px solid hsl(var(--indigo) / 0.4)', color: 'hsl(var(--violet))' }}
+                  >
+                    GPA 8.97
+                  </span>
                 </div>
-              );
-            })}
+                <div className="text-sm text-foreground/90 mb-1">G H Patel College of Engineering & Technology</div>
+                <div className="text-xs text-muted-foreground mb-4">2020 – 2024</div>
+                <div className="text-sm text-muted-foreground">
+                  <span className="text-foreground/80 font-medium">Focus:</span>{' '}
+                  Software Engineering, AI/ML, System Design
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
