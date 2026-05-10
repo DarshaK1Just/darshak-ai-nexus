@@ -93,8 +93,32 @@ export function HeroSection() {
         </div>
 
         {/* Right 40% */}
-        <div className="lg:col-span-2 relative h-[420px] md:h-[500px]">
-          <Constellation />
+        <div className="lg:col-span-2 relative h-[420px] md:h-[500px] flex items-center justify-center">
+          {/* Rotating gradient rings */}
+          <div
+            className="absolute top-1/2 left-1/2 w-[360px] h-[360px] rounded-full pointer-events-none animate-spin-slow"
+            style={{
+              transformOrigin: 'center',
+              transform: 'translate(-50%, -50%)',
+              background: 'conic-gradient(from 0deg, hsl(var(--indigo) / 0.6), hsl(var(--violet) / 0.4), hsl(var(--pink) / 0.6), transparent 60%, hsl(var(--indigo) / 0.6))',
+              maskImage: 'radial-gradient(circle, transparent 58%, black 60%, black 62%, transparent 64%)',
+              WebkitMaskImage: 'radial-gradient(circle, transparent 58%, black 60%, black 62%, transparent 64%)',
+              animation: 'spin-slow 22s linear infinite',
+            }}
+          />
+          <div
+            className="absolute top-1/2 left-1/2 w-[280px] h-[280px] rounded-full pointer-events-none"
+            style={{
+              transform: 'translate(-50%, -50%)',
+              background: 'conic-gradient(from 180deg, hsl(var(--pink) / 0.5), transparent 40%, hsl(var(--violet) / 0.5), transparent 80%)',
+              maskImage: 'radial-gradient(circle, transparent 70%, black 72%, black 74%, transparent 76%)',
+              WebkitMaskImage: 'radial-gradient(circle, transparent 70%, black 72%, black 74%, transparent 76%)',
+              animation: 'spin-rev 28s linear infinite',
+            }}
+          />
+          <div className="absolute inset-0">
+            <Constellation />
+          </div>
         </div>
       </div>
 
