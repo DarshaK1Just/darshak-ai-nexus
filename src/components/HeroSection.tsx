@@ -51,7 +51,7 @@ export function HeroSection() {
           </div>
 
           <p className="text-base text-muted-foreground max-w-xl leading-relaxed">
-            AI/ML Engineer & Full Stack Developer at CrestData Systems. I design intelligent
+            AI/ML Engineer & Full Stack Developer at Crest Data. I design intelligent
             systems, ship production AI, and build delightful end-to-end products.
           </p>
 
