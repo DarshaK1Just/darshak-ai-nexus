@@ -14,23 +14,27 @@ export function HeroSection() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Ambient orbs */}
+      {/* Animated grid */}
+      <div className="absolute inset-0 grid-bg pointer-events-none" />
+
+      {/* Aurora orbs */}
       <div
-        className="absolute top-20 -left-20 w-[300px] h-[300px] rounded-full pointer-events-none animate-drift"
-        style={{ background: 'radial-gradient(circle, hsl(var(--indigo)) 0%, transparent 70%)', opacity: 0.12, filter: 'blur(60px)' }}
+        className="absolute top-10 -left-24 w-[420px] h-[420px] rounded-full pointer-events-none animate-aurora"
+        style={{ background: 'radial-gradient(circle, hsl(var(--indigo)) 0%, transparent 65%)', filter: 'blur(70px)' }}
       />
       <div
-        className="absolute bottom-10 right-10 w-[300px] h-[300px] rounded-full pointer-events-none animate-drift2"
-        style={{ background: 'radial-gradient(circle, hsl(var(--pink)) 0%, transparent 70%)', opacity: 0.12, filter: 'blur(60px)' }}
+        className="absolute bottom-0 right-0 w-[420px] h-[420px] rounded-full pointer-events-none animate-aurora"
+        style={{ background: 'radial-gradient(circle, hsl(var(--pink)) 0%, transparent 65%)', filter: 'blur(70px)', animationDelay: '4s' }}
+      />
+      <div
+        className="absolute top-1/3 left-1/2 w-[360px] h-[360px] rounded-full pointer-events-none animate-aurora"
+        style={{ background: 'radial-gradient(circle, hsl(var(--violet)) 0%, transparent 65%)', filter: 'blur(80px)', opacity: 0.4, animationDelay: '8s' }}
       />
 
       <div className="container mx-auto px-6 grid lg:grid-cols-5 gap-12 items-center relative z-10">
         {/* Left 60% */}
         <div className="lg:col-span-3 space-y-7">
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-surface/60"
-            style={{ animationDelay: '0ms' }}
-          >
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-surface/60 backdrop-blur">
             <span className="relative flex w-2 h-2">
               <span className="absolute inset-0 rounded-full bg-green-brand animate-pulse-dot" />
               <span className="rounded-full w-2 h-2 bg-green-brand" />
@@ -39,7 +43,7 @@ export function HeroSection() {
           </div>
 
           <h1 className="font-display font-bold leading-[1.05] text-[44px] md:text-[56px] lg:text-[68px]">
-            I'm Darshak Kakani
+            I'm <span className="text-gradient-anim">Darshak Kakani</span>
           </h1>
 
           <div className="text-2xl md:text-3xl font-display font-medium text-muted-foreground">
@@ -89,8 +93,32 @@ export function HeroSection() {
         </div>
 
         {/* Right 40% */}
-        <div className="lg:col-span-2 relative h-[420px] md:h-[500px]">
-          <Constellation />
+        <div className="lg:col-span-2 relative h-[420px] md:h-[500px] flex items-center justify-center">
+          {/* Rotating gradient rings */}
+          <div
+            className="absolute top-1/2 left-1/2 w-[360px] h-[360px] rounded-full pointer-events-none animate-spin-slow"
+            style={{
+              transformOrigin: 'center',
+              transform: 'translate(-50%, -50%)',
+              background: 'conic-gradient(from 0deg, hsl(var(--indigo) / 0.6), hsl(var(--violet) / 0.4), hsl(var(--pink) / 0.6), transparent 60%, hsl(var(--indigo) / 0.6))',
+              maskImage: 'radial-gradient(circle, transparent 58%, black 60%, black 62%, transparent 64%)',
+              WebkitMaskImage: 'radial-gradient(circle, transparent 58%, black 60%, black 62%, transparent 64%)',
+              animation: 'spin-slow 22s linear infinite',
+            }}
+          />
+          <div
+            className="absolute top-1/2 left-1/2 w-[280px] h-[280px] rounded-full pointer-events-none"
+            style={{
+              transform: 'translate(-50%, -50%)',
+              background: 'conic-gradient(from 180deg, hsl(var(--pink) / 0.5), transparent 40%, hsl(var(--violet) / 0.5), transparent 80%)',
+              maskImage: 'radial-gradient(circle, transparent 70%, black 72%, black 74%, transparent 76%)',
+              WebkitMaskImage: 'radial-gradient(circle, transparent 70%, black 72%, black 74%, transparent 76%)',
+              animation: 'spin-rev 28s linear infinite',
+            }}
+          />
+          <div className="absolute inset-0">
+            <Constellation />
+          </div>
         </div>
       </div>
 
