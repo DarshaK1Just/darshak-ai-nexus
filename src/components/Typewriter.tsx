@@ -16,6 +16,7 @@ export function Typewriter({
   const [i, setI] = useState(0);
   const [text, setText] = useState('');
   const [del, setDel] = useState(false);
+  const [glitch, setGlitch] = useState(false);
 
   useEffect(() => {
     const full = texts[i];
@@ -24,6 +25,8 @@ export function Typewriter({
       return () => clearTimeout(t);
     }
     if (del && text === '') {
+      setGlitch(true);
+      setTimeout(() => setGlitch(false), 350);
       setDel(false);
       setI((p) => (p + 1) % texts.length);
       return;
@@ -35,7 +38,7 @@ export function Typewriter({
   }, [text, del, i, texts, typingSpeed, deletingSpeed, pauseTime]);
 
   return (
-    <span className={className}>
+    <span className={`${className} ${glitch ? 'animate-glitch' : ''}`}>
       {text}
       <span className="animate-blink text-gradient">|</span>
     </span>
