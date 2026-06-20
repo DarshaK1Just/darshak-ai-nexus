@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useReveal } from '@/hooks/use-reveal';
-import { Calendar, MapPin } from 'lucide-react';
+import { Calendar, MapPin, Target } from 'lucide-react';
 
 const experiences = [
   {
@@ -16,6 +16,7 @@ const experiences = [
       'Implemented automated CI/CD pipelines reducing deployment time by 60%',
     ],
     technologies: ['Angular', 'Python', 'AI/ML', 'DevOps', 'GPT APIs'],
+    impact: 'Reduced deployment time by 60% via automated CI/CD. Led Angular revamp improving UX by 40%.',
   },
   {
     company: 'TatvaSoft',
@@ -30,6 +31,7 @@ const experiences = [
       'Optimized application performance achieving 95+ Lighthouse score',
     ],
     technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT'],
+    impact: 'Shipped full MERN e-commerce app with 95+ Lighthouse score and secure payment flow.',
   },
   {
     company: 'The Spark Foundation',
@@ -44,6 +46,7 @@ const experiences = [
       'Implemented machine learning algorithms achieving 92% accuracy',
     ],
     technologies: ['Python', 'Pandas', 'Scikit-learn', 'Matplotlib', 'Jupyter'],
+    impact: 'Built predictive ML models with 92% accuracy from raw business datasets.',
   },
 ];
 
@@ -61,22 +64,19 @@ export function ExperienceSection() {
         </div>
 
         <div className="grid lg:grid-cols-12 gap-8 max-w-5xl mx-auto">
-          {/* Company list */}
           <div className="lg:col-span-4">
             <div className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible">
               {experiences.map((e, i) => {
                 const isActive = i === active;
                 return (
-                  <button
-                    key={e.company}
-                    onClick={() => setActive(i)}
-                    className="text-left px-4 py-3 rounded-r-md whitespace-nowrap lg:whitespace-normal"
+                  <button key={e.company} onClick={() => setActive(i)}
+                    className="text-left px-4 py-3 rounded-r-md whitespace-nowrap lg:whitespace-normal transition-all"
                     style={{
-                      borderLeft: isActive ? '2px solid hsl(var(--indigo))' : '2px solid hsl(var(--border))',
-                      background: isActive ? 'hsl(var(--indigo) / 0.08)' : 'transparent',
+                      borderLeft: isActive ? '3px solid hsl(var(--indigo))' : '3px solid hsl(var(--border))',
+                      background: isActive ? 'linear-gradient(90deg, hsl(var(--indigo) / 0.12), transparent)' : 'transparent',
                       color: isActive ? 'hsl(var(--foreground))' : 'hsl(var(--muted-foreground))',
-                    }}
-                  >
+                      boxShadow: isActive ? '0 0 20px -10px hsl(var(--indigo) / 0.6)' : 'none',
+                    }}>
                     <div className="font-display font-semibold text-sm">{e.company}</div>
                     <div className="text-xs opacity-70">{e.type}</div>
                   </button>
@@ -85,9 +85,8 @@ export function ExperienceSection() {
             </div>
           </div>
 
-          {/* Detail */}
           <div className="lg:col-span-8">
-            <div className="card-surface p-6 md:p-8" key={active}>
+            <div className="card-surface p-6 md:p-8 animate-[fade-in_0.4s_ease-out]" key={active}>
               <h3 className="font-display font-bold text-xl">
                 {exp.position} <span className="text-muted-foreground font-normal">@ {exp.company}</span>
               </h3>
@@ -105,10 +104,17 @@ export function ExperienceSection() {
                 ))}
               </ul>
 
-              <div className="flex flex-wrap gap-2">
-                {exp.technologies.map((t) => (
-                  <span key={t} className="chip chip-mono">{t}</span>
-                ))}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {exp.technologies.map((t) => <span key={t} className="chip chip-mono">{t}</span>)}
+              </div>
+
+              <div className="rounded-lg p-4 flex gap-3 items-start"
+                style={{ background: 'linear-gradient(135deg, hsl(var(--indigo) / 0.12), hsl(var(--pink) / 0.08))', border: '1px solid hsl(var(--indigo) / 0.3)' }}>
+                <Target className="w-5 h-5 text-gradient shrink-0 mt-0.5" />
+                <div>
+                  <div className="text-[10px] uppercase tracking-widest text-gradient font-bold mb-1">Key Impact</div>
+                  <div className="text-sm text-foreground/90 leading-relaxed">{exp.impact}</div>
+                </div>
               </div>
             </div>
           </div>
