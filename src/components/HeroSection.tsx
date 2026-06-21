@@ -35,27 +35,22 @@ export function HeroSection() {
             <span className="text-muted-foreground">Ahmedabad, India</span>
           </div>
 
-          <h1 className="font-display font-bold leading-[1.02] text-[44px] md:text-[60px] lg:text-[72px]">
-            <span className="block text-foreground/90">I'm{' '}
-              <Typewriter
-                texts={['Darshak Kakani']}
-                loop={false}
-                typingSpeed={110}
-                className="text-gradient-anim"
-              />
-            </span>
-            <span className="block mt-2 text-[32px] md:text-[44px] lg:text-[52px] text-foreground/80">
-              I build AI that{' '}
-              <Typewriter
-                texts={['thinks.', 'ships.', 'scales.', 'wins.']}
-                className="text-gradient-anim"
-              />
-            </span>
+          <h1 className="font-display font-bold leading-[1.05] text-[44px] md:text-[60px] lg:text-[72px]">
+            <span className="text-foreground/90">I'm </span>
+            <span className="text-gradient-anim">Darshak Kakani</span>
           </h1>
+          <div className="font-display font-semibold text-[20px] md:text-[26px] lg:text-[30px] text-foreground/80 -mt-3">
+            I build{' '}
+            <Typewriter
+              texts={['ML Models.', 'AI Agents.', 'RAG Pipelines.', 'LLM Systems.', 'Full-Stack Products.']}
+              className="text-gradient-anim"
+            />
+          </div>
 
           <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
             AI/ML Engineer & Full Stack Developer at <span className="text-foreground font-medium">Crest Data</span>. I architect production-grade LLM systems, agentic pipelines, and full-stack products — then ship them.
           </p>
+
 
 
           <div className="flex flex-wrap gap-3 pt-2">
