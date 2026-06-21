@@ -1,7 +1,6 @@
 import { Github, Linkedin, Youtube, ArrowRight, Download, MapPin } from 'lucide-react';
 import { Constellation } from './Constellation';
 import { Typewriter } from './Typewriter';
-import { useInViewOnce, useCountUp } from '@/hooks/use-reveal';
 
 const socials = [
   { name: 'GitHub', url: 'https://github.com/DarshaK1Just', icon: Github },
@@ -9,24 +8,6 @@ const socials = [
   { name: 'YouTube', url: 'https://www.youtube.com/channel/UCUy35Eo8jIpBYnEovea6Vow', icon: Youtube },
 ];
 
-const heroStats = [
-  { num: 2, suffix: '+', label: 'Years at Prod Scale' },
-  { num: 15, suffix: '+', label: 'Projects Shipped' },
-  { num: 95, suffix: '%', label: 'AI Accuracy Achieved' },
-];
-
-function HeroStat({ s }: { s: typeof heroStats[0] }) {
-  const { ref, inView } = useInViewOnce<HTMLDivElement>();
-  const v = useCountUp(s.num, inView, 1600);
-  return (
-    <div ref={ref}>
-      <div className="font-display font-bold text-3xl md:text-4xl text-gradient-anim leading-none">
-        {v}{s.suffix}
-      </div>
-      <div className="text-[11px] text-muted-foreground tracking-wide uppercase mt-1.5">{s.label}</div>
-    </div>
-  );
-}
 
 export function HeroSection() {
   const scrollTo = (id: string) =>
