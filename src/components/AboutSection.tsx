@@ -11,19 +11,20 @@ const tones: Record<string, Tone> = {
 };
 
 const stats = [
-  { num: 2,  suffix: '+', label: 'Years Experience',     tone: 'indigo' as const, delay: 0 },
-  { num: 15, suffix: '+', label: 'Projects Completed',   tone: 'pink'   as const, delay: 0.4 },
+  { num: 3,  suffix: '+', label: 'Years Experience',     tone: 'indigo' as const, delay: 0 },
+  { num: 15, suffix: '+', label: 'Projects Shipped',     tone: 'pink'   as const, delay: 0.4 },
   { num: 5,  suffix: '+', label: 'Tech Awards',          tone: 'cyan'   as const, delay: 0.8 },
   { num: 100, suffix: 'K+', label: 'Lines of Prod Code', tone: 'green'  as const, delay: 1.2 },
 ];
 
 const timeline = [
-  { year: '2020', text: 'Started B.E. IT @ GCET — CGPA 8.97' },
-  { year: '2022', text: 'Added IoT Minor — embedded systems, edge AI' },
-  { year: '2023', text: 'Joined Crest Data as Software Engineer' },
-  { year: '2024', text: 'Built production AI: LLM agents, RAG pipelines, DevOps AI' },
-  { year: '2025+', text: 'Building at the frontier — open to the right team' },
+  { year: '2020', text: 'Started B.E. Information Technology @ GCET, CVM University — CGPA 8.97' },
+  { year: '2022', text: 'Picked up an IoT minor — embedded systems, edge AI, real hardware' },
+  { year: '2023', text: 'Joined Crest Data as a Software Engineer — shipping to production from day one' },
+  { year: '2024', text: 'Leading AI builds: LLM agents, RAG pipelines, GPT-powered DevOps platforms' },
+  { year: 'Now',  text: 'Architecting agentic systems at Crest Data — open to senior AI/Full-Stack roles' },
 ];
+
 
 function StatOrb({ s, idx }: { s: typeof stats[0]; idx: number }) {
   const { ref, inView } = useInViewOnce<HTMLDivElement>();
