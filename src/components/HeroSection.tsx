@@ -66,10 +66,7 @@ export function HeroSection() {
               target="_blank" rel="noopener noreferrer" className="pill pill-outline px-6 py-3 text-sm">
               Download Resume <Download className="w-4 h-4" />
             </a>
-            <a href="https://github.com/DarshaK1Just" target="_blank" rel="noopener noreferrer"
-               aria-label="GitHub" className="icon-btn w-12 h-12">
-              <Github className="w-5 h-5" />
-            </a>
+
           </div>
 
           <div className="flex gap-3 pt-2">
