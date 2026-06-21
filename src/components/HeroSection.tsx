@@ -35,11 +35,11 @@ export function HeroSection() {
             <span className="text-muted-foreground">Ahmedabad, India</span>
           </div>
 
-          <h1 className="font-display font-bold leading-[1.05] text-[34px] md:text-[48px] lg:text-[60px] whitespace-normal md:whitespace-nowrap">
+          <h1 className="font-display font-bold leading-[1.05] text-[36px] md:text-[50px] lg:text-[64px] whitespace-normal md:whitespace-nowrap">
             <span className="text-foreground/90">I'm </span>
             <span className="text-gradient-anim">Darshak Kakani</span>
           </h1>
-          <div className="font-display font-semibold text-[20px] md:text-[26px] lg:text-[30px] text-foreground/80 -mt-3">
+          <div className="font-display font-semibold text-[18px] md:text-[23px] lg:text-[26px] text-foreground/80 -mt-3">
             I build AI that{' '}
             <Typewriter
               texts={['thinks.', 'ships.', 'scales.', 'wins.']}
@@ -47,7 +47,7 @@ export function HeroSection() {
             />
           </div>
 
-          <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
+          <p className="text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed">
             AI/ML Engineer & Full Stack Developer at <span className="text-foreground font-medium">Crest Data</span>. I architect production-grade LLM systems, agentic pipelines, and full-stack products — then ship them.
           </p>
 
