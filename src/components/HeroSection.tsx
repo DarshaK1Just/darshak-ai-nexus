@@ -36,20 +36,27 @@ export function HeroSection() {
           </div>
 
           <h1 className="font-display font-bold leading-[1.02] text-[44px] md:text-[60px] lg:text-[72px]">
-            I build AI that<br />
-            <Typewriter
-              texts={['thinks.', 'ships.', 'scales.', 'wins.']}
-              className="text-gradient-anim"
-            />
+            <span className="block text-foreground/90">I'm{' '}
+              <Typewriter
+                texts={['Darshak Kakani']}
+                loop={false}
+                typingSpeed={110}
+                className="text-gradient-anim"
+              />
+            </span>
+            <span className="block mt-2 text-[32px] md:text-[44px] lg:text-[52px] text-foreground/80">
+              I build AI that{' '}
+              <Typewriter
+                texts={['thinks.', 'ships.', 'scales.', 'wins.']}
+                className="text-gradient-anim"
+              />
+            </span>
           </h1>
 
           <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
             AI/ML Engineer & Full Stack Developer at <span className="text-foreground font-medium">Crest Data</span>. I architect production-grade LLM systems, agentic pipelines, and full-stack products — then ship them.
           </p>
 
-          <div className="grid grid-cols-3 gap-4 max-w-md pt-2">
-            {heroStats.map((s) => <HeroStat key={s.label} s={s} />)}
-          </div>
 
           <div className="flex flex-wrap gap-3 pt-2">
             <button onClick={() => scrollTo('projects')} className="pill pill-gradient px-6 py-3 text-sm">
