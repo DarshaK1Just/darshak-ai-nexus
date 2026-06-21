@@ -137,13 +137,8 @@ export function AboutSection() {
           </div>
         </div>
 
-        {/* Philosophy pull quote */}
-        <div className="max-w-4xl mx-auto mt-20 pl-6 md:pl-8" style={{ borderLeft: '3px solid hsl(var(--indigo))' }}>
-          <p className="font-display italic text-2xl md:text-3xl lg:text-4xl leading-tight">
-            "I don't just write code. I engineer systems that <span className="text-gradient">think</span> — and I ship them."
-          </p>
-          <div className="text-sm text-muted-foreground mt-4 font-mono">— Darshak Kakani</div>
-        </div>
+
+
       </div>
     </section>
   );
