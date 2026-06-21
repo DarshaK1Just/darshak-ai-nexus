@@ -40,9 +40,9 @@ export function HeroSection() {
             <span className="text-gradient-anim">Darshak Kakani</span>
           </h1>
           <div className="font-display font-semibold text-[20px] md:text-[26px] lg:text-[30px] text-foreground/80 -mt-3">
-            I build{' '}
+            I build AI that{' '}
             <Typewriter
-              texts={['ML Models.', 'AI Agents.', 'RAG Pipelines.', 'LLM Systems.', 'Full-Stack Products.']}
+              texts={['thinks.', 'ships.', 'scales.', 'wins.']}
               className="text-gradient-anim"
             />
           </div>
