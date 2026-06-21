@@ -4,12 +4,12 @@ import { CommandTerminal } from './CommandTerminal';
 
 const links = [
   { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
   { href: '#projects', label: 'Projects' },
   { href: '#experience', label: 'Experience' },
-  { href: '#github', label: 'GitHub' },
+  { href: '#skills', label: 'Skills' },
   { href: '#contact', label: 'Contact' },
 ];
+
 
 export function Navbar() {
   const [open, setOpen] = useState(false);

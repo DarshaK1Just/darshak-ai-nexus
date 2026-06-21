@@ -98,9 +98,24 @@ export function SkillsSection() {
   return (
     <section ref={ref} id="skills" className="section reveal">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <div className="section-eyebrow justify-center">Skills</div>
           <h2 className="section-title">A <span className="text-gradient">full-stack</span> arsenal</h2>
+        </div>
+
+        {/* Tools ticker — moved to top */}
+        <div className="max-w-6xl mx-auto mb-12">
+          <div className="text-xs uppercase tracking-widest text-muted-foreground mb-3 font-mono text-center">// tools i swear by</div>
+          <div className="relative overflow-hidden card-surface py-4"
+            style={{ maskImage: 'linear-gradient(90deg, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(90deg, transparent, black 10%, black 90%, transparent)' }}>
+            <div className="flex gap-8 animate-ticker whitespace-nowrap" style={{ width: 'max-content' }}>
+              {[...ticker, ...ticker].map((t, i) => (
+                <span key={i} className="font-mono text-sm text-muted-foreground hover:text-gradient transition-colors">
+                  {t} <span className="text-indigo-brand mx-2">·</span>
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-8 max-w-6xl mx-auto">
@@ -126,25 +141,11 @@ export function SkillsSection() {
           })}
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto mb-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto">
           {topSkills.map((s, i) => <Ring key={s.name} value={s.value} label={s.name} idx={i} />)}
-        </div>
-
-        {/* Tools ticker */}
-        <div className="max-w-6xl mx-auto">
-          <div className="text-xs uppercase tracking-widest text-muted-foreground mb-3 font-mono text-center">// tools i swear by</div>
-          <div className="relative overflow-hidden card-surface py-4"
-            style={{ maskImage: 'linear-gradient(90deg, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(90deg, transparent, black 10%, black 90%, transparent)' }}>
-            <div className="flex gap-8 animate-ticker whitespace-nowrap" style={{ width: 'max-content' }}>
-              {[...ticker, ...ticker].map((t, i) => (
-                <span key={i} className="font-mono text-sm text-muted-foreground hover:text-gradient transition-colors">
-                  {t} <span className="text-indigo-brand mx-2">·</span>
-                </span>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </section>
+
   );
 }
