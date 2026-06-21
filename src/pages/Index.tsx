@@ -1,12 +1,9 @@
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
 import { AboutSection } from '@/components/AboutSection';
-import { ExperienceSection } from '@/components/ExperienceSection';
-import { FreelanceSection } from '@/components/FreelanceSection';
-import { EducationSection } from '@/components/EducationSection';
-import { SkillsSection } from '@/components/SkillsSection';
 import { ProjectsSection } from '@/components/ProjectsSection';
-import { GithubShowcase } from '@/components/GithubShowcase';
+import { ExperienceSection } from '@/components/ExperienceSection';
+import { SkillsSection } from '@/components/SkillsSection';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
 import { ScrollProgress } from '@/components/ScrollProgress';
@@ -21,17 +18,15 @@ const Index = () => {
       <main>
         <HeroSection />
         <AboutSection />
-        <ExperienceSection />
-        <FreelanceSection />
-        <EducationSection />
-        <SkillsSection />
         <ProjectsSection />
-        <GithubShowcase />
+        <ExperienceSection />
+        <SkillsSection />
         <ContactSection />
       </main>
       <Footer />
     </div>
   );
 };
+
 
 export default Index;
