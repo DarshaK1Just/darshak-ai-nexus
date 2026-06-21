@@ -35,7 +35,7 @@ export function HeroSection() {
             <span className="text-muted-foreground">Ahmedabad, India</span>
           </div>
 
-          <h1 className="font-display font-bold leading-[1.05] text-[44px] md:text-[60px] lg:text-[72px]">
+          <h1 className="font-display font-bold leading-[1.05] text-[34px] md:text-[48px] lg:text-[60px] whitespace-normal md:whitespace-nowrap">
             <span className="text-foreground/90">I'm </span>
             <span className="text-gradient-anim">Darshak Kakani</span>
           </h1>
